@@ -1,14 +1,22 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import MenuLink from "./MenuLink";
+import useLoginModal from "@/hooks/useLoginModal";
+import useSignupModal from "@/hooks/useSignupModal";
 
 const UserNav = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const loginModal = useLoginModal();
+  const signupModal = useSignupModal();
+
   return (
     <div className="p-2 relative inline-block border rounded-full">
       <button
         type="button"
         aria-label="user menu"
         className="flex items-center cursor-pointer "
+        onClick={() => setIsOpen(!isOpen)}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -39,6 +47,24 @@ const UserNav = () => {
           />
         </svg>
       </button>
+      {isOpen && (
+        <div className="w-[220px] absolute top-[60px] right-0 bg-white border rounded-xl shadow-md flex flex-col cursor-pointer">
+          <MenuLink
+            label="log In"
+            onClick={() => {
+              setIsOpen(false);
+              loginModal.open();
+            }}
+          />
+          <MenuLink
+            label="Sign Up"
+            onClick={() => {
+              setIsOpen(false);
+              signupModal.open();
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };

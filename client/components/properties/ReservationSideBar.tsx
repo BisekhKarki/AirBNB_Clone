@@ -6,7 +6,7 @@ const ReservationSideBar = () => {
       <h2 className="mb-5 text-2xl">$200/ per night</h2>
       <div className="mb-6 p-3 border border-gray-400 rounded-xl">
         <label className="block font-bold text-xs mb-2">Guests</label>
-        <select className="w-full -ml-1 text-sm">
+        <select className="w-full -ml-1 text-sm" aria-label="Select An Option">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
