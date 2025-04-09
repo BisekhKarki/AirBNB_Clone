@@ -23,11 +23,12 @@ class CustomUserManager(UserManager):
         extra_fields.setdefault("is_staff",False)
         extra_fields.setdefault("is_superuser",False)
 
-        return self.create_user(name,email,password,**extra_fields)
+        return self._create_user(name,email,password,**extra_fields)
     
     def create_superuser(self,name=None,email=None, password=None, **extra_fields):
-        extra_fields.setdefault("is_staff",False)
+        extra_fields.setdefault("is_staff",True)
         extra_fields.setdefault("is_superuser",True)
+        return self._create_user(name, email, password, **extra_fields)
 
 
 
@@ -35,7 +36,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     id = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False)
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=225, blank=True,null=True)
-    avatar = models.ImageField(upload_to="uploads/avatars ")
+    avatar = models.ImageField(upload_to="uploads/avatars")
 
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
