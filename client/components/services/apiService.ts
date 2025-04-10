@@ -16,6 +16,22 @@ const apiService = {
         .catch((err) => reject(err));
     });
   },
+  post: async function (url: string, data: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          resolve(json);
+        })
+        .catch((err) => reject(err));
+    });
+  },
 };
 
 export default apiService;
