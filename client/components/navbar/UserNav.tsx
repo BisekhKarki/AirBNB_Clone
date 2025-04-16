@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useId, useState } from "react";
+import React, { useState } from "react";
 import MenuLink from "./MenuLink";
 import useLoginModal from "@/hooks/useLoginModal";
 import useSignupModal from "@/hooks/useSignupModal";
