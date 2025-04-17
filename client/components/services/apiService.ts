@@ -69,6 +69,25 @@ const apiService = {
         .catch((err) => reject(err));
     });
   },
+
+  createBooking: async function (url: string, data: any): Promise<any> {
+    const token = await getAccessToken();
+    return new Promise((resolve, reject) => {
+      fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
+        method: "POST",
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: data,
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          resolve(json);
+        })
+        .catch((err) => reject(err));
+    });
+  },
 };
 
 export default apiService;

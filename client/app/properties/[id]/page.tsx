@@ -7,6 +7,7 @@ import profile from "@/public/profile_pic_1.jpg";
 import ReservationSideBar from "@/components/properties/ReservationSideBar";
 import apiService from "@/components/services/apiService";
 import { useParams } from "next/navigation";
+import { getUserId } from "@/lib/action";
 
 export interface Property {
   id: string;
@@ -26,11 +27,17 @@ export interface Property {
 
 const PropertyDetailPage = () => {
   const [property, setProperty] = useState<Property | null>(null);
+  const [userId, setUserId] = useState<string>("");
   const { id } = useParams();
 
   useEffect(() => {
     const fetchProperty = async () => {
       if (!id) return;
+      const user = await getUserId();
+      if (user) {
+        setUserId(user as string);
+      }
+
       try {
         const propertyData = await apiService.getProperty(
           `/api/properties/${id}`
@@ -87,7 +94,7 @@ const PropertyDetailPage = () => {
           <hr />
           <p className="mt-6 text-lg ">{property.description}</p>
         </div>
-        <ReservationSideBar property={property} />
+        <ReservationSideBar property={property} userId={userId} />
       </div>
     </main>
   );
